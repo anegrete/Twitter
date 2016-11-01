@@ -16,7 +16,7 @@ class HomeViewController: UIViewController {
 
 	var refreshControl = UIRefreshControl()
 	var loadingMoreView:InfiniteScrollActivityView?
-	var loading = true
+	var loading = false
 
 	// MARK: - View Lifecycle
 
@@ -119,7 +119,7 @@ class HomeViewController: UIViewController {
 			success: { (tweets: [Tweet]) in
 				self.loading = false
 				self.loadingMoreView!.stopAnimating()
-				self.tweets = tweets
+				self.tweets?.append(contentsOf: tweets)
 				self.tweetsTableView.reloadData()
 			},
 			failure: { (error: Error) in

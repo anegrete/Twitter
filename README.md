@@ -2,7 +2,7 @@
 
 Twitter is a basic twitter app to read and compose tweets from the [Twitter API](https://apps.twitter.com/).
 
-Time spent: **X** hours spent in total
+Time spent: 18 hours spent in total
 
 ## User Stories
 
@@ -27,21 +27,21 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [x] Save draft and show the last saved draft when composing a new tweet
+- [x] Save draft and show the last saved draft when composing a new tweet.
 - [x] Show alert action to save draft when composing a tweet.
-- [x] Detect when no internet connection and display a message
-- [x] Navigation bar, icons, status bar customized with similar Twitter blue style
+- [x] Detect when no internet connection and display a message.
+- [x] Navigation bar, icons, status bar customized with similar Twitter blue style.
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
 1. Better ways to organize twitter actions buttons
-2. Autolayout
+2. Autolayout with several dynamic views
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-![Video Walkthrough](Twitter-anegrete.gif)
+![Video Walkthrough](Twitter-anegrete-2.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
