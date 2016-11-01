@@ -2,45 +2,98 @@
 //  AppDelegate.swift
 //  Twitter
 //
-//  Created by Ale on 10/28/16.
+//  Created by anegrete on 10/28/16.
 //  Copyright © 2016 Alejandra Negrete. All rights reserved.
 //
 
 import UIKit
+import BDBOAuth1Manager
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-  var window: UIWindow?
+	var window: UIWindow?
 
 
-  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    // Override point for customization after application launch.
-    return true
-  }
+	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-  func applicationWillResignActive(_ application: UIApplication) {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-  }
+		UIApplication.shared.statusBarStyle = .lightContent
 
-  func applicationDidEnterBackground(_ application: UIApplication) {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-  }
+		initialize()
 
-  func applicationWillEnterForeground(_ application: UIApplication) {
-    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-  }
+		return true
+	}
 
-  func applicationDidBecomeActive(_ application: UIApplication) {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-  }
+	func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+		TwitterClient.shared?.handleOpenUrl(url: url)
+		return true
+	}
 
-  func applicationWillTerminate(_ application: UIApplication) {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-  }
+	// MARK: - Navigation
+
+	func initialize() {
+
+		if User.currentUser != nil {
+			show(viewController: homeViewController())
+		}
+
+		self.addLogoutObserver()
+
+		// Init reachability to start monitoring network changes
+		self.setupReachability()
+	}
+
+	func loginViewController() -> UIViewController {
+		let storyboard = UIStoryboard(name: "Main", bundle: nil)
+		return storyboard.instantiateInitialViewController()!
+	}
+
+	func homeViewController() -> UIViewController {
+		let storyboard = UIStoryboard(name: "Main", bundle: nil)
+		return storyboard.instantiateViewController(withIdentifier: "HomeNavigationController")
+	}
+
+	func detailViewController() -> UIViewController {
+		let storyboard = UIStoryboard(name: "Main", bundle: nil)
+		return storyboard.instantiateViewController(withIdentifier: "TweetDetailViewController")
+	}
+
+	func show(viewController: UIViewController) {
+		self.window?.rootViewController = viewController
+	}
 
 
+	// MARK: - Observers
+
+	func addLogoutObserver() {
+		NotificationCenter.default.addObserver(
+			forName: NSNotification.Name(rawValue: NotificationName.userDidLogout),
+			object: nil,
+			queue: OperationQueue.main) {
+				(notification: Notification) in
+				self.show(viewController: self.loginViewController())
+		}
+	}
+
+	// MARK: - Reachability
+
+	func setupReachability() {
+
+		// Start monitoring reachability status changes
+		let reachabilityManager = AFNetworkReachabilityManager.shared()
+		reachabilityManager.startMonitoring()
+		reachabilityManager.setReachabilityStatusChange { (AFNetworkReachabilityStatus) in
+
+			switch(AFNetworkReachabilityStatus) {
+
+			case .unknown, .notReachable:
+				print("Not reachable")
+				UIHelper.showNoNetwork()
+
+			case .reachableViaWiFi, .reachableViaWWAN:
+				print("Reachable")
+			}
+		}
+	}
 }
 
