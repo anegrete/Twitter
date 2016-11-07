@@ -36,6 +36,10 @@ class TweetTableViewCell: UITableViewCell {
 			tweetTextLabel.text = tweet.text!
 
 			profileImageView.setImageWith((tweet.user?.profileUrl)!)
+			let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapProfileImageView))
+			profileImageView.isUserInteractionEnabled = true
+			tapGestureRecognizer.delegate = self
+			profileImageView.addGestureRecognizer(tapGestureRecognizer)
 			screennameLabel.text = "@" + (tweet.user?.screenname)!
 			nameLabel.text = tweet.user?.name!
 			createdAtLabel.text = Date.shortDescription(date: tweet.timestamp!)
@@ -61,13 +65,22 @@ class TweetTableViewCell: UITableViewCell {
 		}
 	}
 
-	// MARK: - UI Actions
+	// MARK: - View Lifecycle
+
+	override func awakeFromNib() {
+		super.awakeFromNib()
+
+		profileImageView.layer.cornerRadius = 3
+		profileImageView.clipsToBounds = true
+
+		mediaImageView.layer.cornerRadius = 3
+		mediaImageView.clipsToBounds = true
+	}
+
+	// MARK: - Twitter Actions
 
 	@IBAction func didTapReplyButton(_ sender: UIButton) {
-		let storyboard = UIStoryboard(name: "Main", bundle: nil)
-		let composeTweetViewController = storyboard.instantiateViewController(withIdentifier: "ComposeTweetViewController") as! ComposeTweetViewController
-		composeTweetViewController.replyToTweet = tweet
-		self.window?.rootViewController?.present(composeTweetViewController, animated: true, completion: nil)
+		UIStoryboard.presentComposeViewControllerWith(tweet: tweet)
 	}
 
 	@IBAction func didTapRetweetButton(_ sender: UIButton) {
@@ -120,15 +133,13 @@ class TweetTableViewCell: UITableViewCell {
 		}
 	}
 
-	// MARK: - View Lifecycle
+	// MARK: - Gestures
 
-	override func awakeFromNib() {
-		super.awakeFromNib()
+	@IBAction func didTapProfileImageView(_ sender: UITapGestureRecognizer) {
+		UIStoryboard.showProfileViewControllerWith(user: tweet.user!)
+	}
 
-		profileImageView.layer.cornerRadius = 3
-		profileImageView.clipsToBounds = true
-
-		mediaImageView.layer.cornerRadius = 3
-		mediaImageView.clipsToBounds = true
+	override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+		return true
 	}
 }
