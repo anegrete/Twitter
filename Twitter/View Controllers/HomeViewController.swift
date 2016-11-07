@@ -99,7 +99,7 @@ class HomeViewController: UIViewController {
 				self.tweetsTableView.reloadData()
 			},
 			failure: { (error: Error) in
-				print("Error getting timeline")
+				UIHelper.showError(message: "Can't get tweets right now. Please try again later")
 				self.refreshControl.endRefreshing()
 		})
 	}
@@ -117,7 +117,7 @@ class HomeViewController: UIViewController {
 				self.tweetsTableView.reloadData()
 			},
 			failure: { (error: Error) in
-				print("Error getting timeline")
+				UIHelper.showError(message: "Can't get tweets right now. Please try again later")
 		})
 	}
 }
@@ -141,10 +141,8 @@ extension HomeViewController : UITableViewDataSource {
 extension HomeViewController : UITableViewDelegate {
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let detailViewController = UIStoryboard.detailViewController()
-		detailViewController.tweet = tweets?[indexPath.row]
-		show(detailViewController, sender: nil)
 		tableView.deselectRow(at: indexPath, animated: true)
+		UIStoryboard.showDetailViewControllerWith(tweet: (tweets?[indexPath.row])!)
 	}
 }
 

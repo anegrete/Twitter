@@ -23,15 +23,13 @@ class UIHelper: NSObject {
 		let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
 		let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
 		alertController.addAction(okAction)
-
-		UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
+		UIStoryboard.present(viewController: alertController)
 	}
 
 	class func showNoNetwork() {
 		let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
 		let alertController = UIAlertController(title: "No Network Error", message: "Please check your internet connection", preferredStyle: .alert)
 		alertController.addAction(okAction)
-
-		UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
+		UIStoryboard.present(viewController: alertController)
 	}
 }

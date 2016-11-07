@@ -33,10 +33,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func initialize() {
 
 		if User.currentUser != nil {
-			self.showMenu()
+			UIStoryboard.showMenu()
 		}
 		else {
-			self.showLogin()
+			UIStoryboard.showLogin()
 		}
 
 		self.addLogoutObserver()
@@ -44,19 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Init reachability to start monitoring network changes
 		self.setupReachability()
 	}
-
-	func show(viewController: UIViewController) {
-		self.window?.rootViewController = viewController
-	}
-
-	func showLogin() {
-		self.show(viewController: UIStoryboard.loginViewController())
-	}
-
-	func showMenu() {
-		self.show(viewController: UIStoryboard.hamburgerViewController())
-	}
-
 
 	// MARK: - Observers
 
@@ -66,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			object: nil,
 			queue: OperationQueue.main) {
 				(notification: Notification) in
-				self.showLogin()
+				UIStoryboard.showLogin()
 		}
 	}
 

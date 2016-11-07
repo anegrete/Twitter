@@ -42,7 +42,7 @@ class MenuViewController: UIViewController {
 
 	func initViewControllers() {
 		homeTimelineNavigationController = UIStoryboard.homeViewController()
-		profileNavigationController = UIStoryboard.profileViewController()
+		profileNavigationController = UIStoryboard.profileNavigationController()
 		mentionsNavigationController = UIStoryboard.mentionsViewController()
 
 		viewControllers.append(homeTimelineNavigationController)

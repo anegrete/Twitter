@@ -16,9 +16,10 @@ class LoginViewController: UIViewController {
 	@IBAction func didTapLoginButton(_ sender: UIButton) {
 		TwitterClient.shared?.login(
 			success: {
-			self.present(UIStoryboard.hamburgerViewController(), animated: true, completion: nil)
+				UIStoryboard.showMenu()
 			},
 			failure: { (error: Error) in
+				UIHelper.showError(message: "Can't sign in right now. Please try again later")
 		})
 	}
 }

@@ -83,13 +83,10 @@ class TweetDetailViewController: UIViewController {
 		self.navigationItem.title = "Tweet"
 	}
 
-	// MARK: - UI Actions
+	// MARK: - Twitter Actions
 
 	@IBAction func didTapReplyButton(_ sender: UIButton) {
-		let storyboard = UIStoryboard(name: "Main", bundle: nil)
-		let composeTweetViewController = storyboard.instantiateViewController(withIdentifier: "ComposeTweetViewController") as! ComposeTweetViewController
-		composeTweetViewController.replyToTweet = tweet
-		present(composeTweetViewController, animated: true, completion: nil)
+		UIStoryboard.presentComposeViewControllerWith(tweet: tweet)
 	}
 
 	@IBAction func didTapRetweetButton(_ sender: UIButton) {
