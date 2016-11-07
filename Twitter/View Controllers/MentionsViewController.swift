@@ -12,11 +12,11 @@ class MentionsViewController: TweetsViewController {
 
 	// MARK: - Tweets
 
-	override func retrieveTweets(maxId: String) {
-		TwitterClient.shared?.mentions(
+	override func retrieveTweets(maxId: String?) {
+		TwitterClient.shared?.mentionsTimeline(
 			maxId: maxId,
 			success: { (newTweets: [Tweet]) in
-				if maxId != "" {
+				if maxId != nil {
 					self.loading = false
 					self.loadingMoreView!.stopAnimating()
 

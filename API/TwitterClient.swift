@@ -109,43 +109,21 @@ class TwitterClient: BDBOAuth1SessionManager  {
 		})
 	}
 
-	// MARK: - Tweets
+	// MARK: - Timeline
 
-	// Timeline
+	func timeline(url: String, maxId: String?, screenname: String?, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
 
-	func homeTimeline(maxId: String, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
+		var parameters:[String:String] = [:]
 
-		var parameters:[String:String]? = nil
-
-		if maxId != "" {
-			parameters = ["max_id" : maxId]
+		if let maxId = maxId {
+			parameters["max_id"] = maxId
 		}
 
-		get("1.1/statuses/home_timeline.json",
-			parameters: parameters,
-			progress: nil,
-			success: { (task: URLSessionDataTask, response: Any?) in
-				let dictionaries = response as! [NSDictionary]
-				let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries)
-				success(tweets)
-			},
-			failure: { (task: URLSessionDataTask?, error: Error) in
-				failure(error)
-				print("Error: \(error.localizedDescription)")
-		})
-	}
-
-	// Mentions
-
-	func mentions(maxId: String, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
-
-		var parameters:[String:String]? = nil
-
-		if maxId != "" {
-			parameters = ["max_id" : maxId]
+		if let screenname = screenname {
+			parameters["screen_name"] = screenname
 		}
 
-		get("1.1/statuses/mentions_timeline.json",
+		get(url,
 		    parameters: parameters,
 		    progress: nil,
 		    success: { (task: URLSessionDataTask, response: Any?) in
@@ -158,6 +136,30 @@ class TwitterClient: BDBOAuth1SessionManager  {
 				print("Error: \(error.localizedDescription)")
 		})
 	}
+
+	func timeline(url: String, maxId: String?, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
+		timeline(url: url, maxId: maxId, screenname: nil, success: success, failure: failure)
+	}
+
+	// Home Timeline
+
+	func homeTimeline(maxId: String?, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
+		timeline(url: "1.1/statuses/home_timeline.json", maxId: maxId, success: success, failure: failure)
+	}
+
+	// User Timeline
+
+	func userTimeline(maxId: String?, screenname: String, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
+		timeline(url: "1.1/statuses/user_timeline.json", maxId: maxId, screenname: screenname, success: success, failure: failure)
+	}
+
+	// Timeline Mentions
+
+	func mentionsTimeline(maxId: String?, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
+		timeline(url: "1.1/statuses/mentions_timeline.json", maxId: maxId, success: success, failure: failure)
+	}
+
+	// MARK: - Actions
 
 	// Retweet
 

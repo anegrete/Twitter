@@ -12,11 +12,11 @@ class HomeViewController: TweetsViewController {
 
 	// MARK: - Tweets
 
-	override func retrieveTweets(maxId: String) {
+	override func retrieveTweets(maxId: String?) {
 		TwitterClient.shared?.homeTimeline(
 			maxId: maxId,
 			success: { (newTweets: [Tweet]) in
-				if maxId != "" {
+				if maxId != nil {
 					self.loading = false
 					self.loadingMoreView!.stopAnimating()
 					self.tweets?.append(contentsOf: newTweets)

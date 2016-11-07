@@ -23,7 +23,7 @@ class TweetsViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		retrieveTweets(maxId: "")
+		retrieveTweets(maxId: nil)
 		initTableView()
 		initObservers()
 		initRefreshControl()
@@ -72,7 +72,7 @@ class TweetsViewController: UIViewController {
 	}
 
 	func refreshControlAction(refreshControl: UIRefreshControl) {
-		retrieveTweets(maxId: "")
+		retrieveTweets(maxId: nil)
 	}
 
 	// MARK: - Infinite Scroll
@@ -91,7 +91,7 @@ class TweetsViewController: UIViewController {
 
 	// MARK: - Tweets
 
-	func retrieveTweets(maxId: String) {
+	func retrieveTweets(maxId: String?) {
 		preconditionFailure("This method must be overriden")
 	}
 

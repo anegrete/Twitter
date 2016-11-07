@@ -68,7 +68,9 @@ class HamburgerViewController: UIViewController {
 
 	func addPanGesture() {
 		panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(onPanGesture))
-		contentView.isUserInteractionEnabled = true		contentView.addGestureRecognizer(panGestureRecognizer)
+		contentView.isUserInteractionEnabled = true
+//		panGestureRecognizer.delegate = self
+		contentView.addGestureRecognizer(panGestureRecognizer)
 	}
 
 	func removePanGesture() {
