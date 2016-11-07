@@ -173,9 +173,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qbo-Uh-PGA" userLabel="Content View">
                                 <color key="backgroundColor" red="0.1137254902" green="0.5568627451" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="oxl-na-lnn" appends="YES" id="uva-8h-TSR"/>
-                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -197,11 +194,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tj0-zl-3ox" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="oxl-na-lnn" userLabel="I">
-                    <connections>
-                        <action selector="onPanGesture:" destination="twY-Ir-ZqL" id="rhr-rQ-Ksb"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-58" y="2009"/>
         </scene>

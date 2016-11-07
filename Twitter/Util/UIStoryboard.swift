@@ -53,9 +53,11 @@ extension UIStoryboard {
 			as! ComposeTweetViewController
 	}
 
-	static func presentComposeViewControllerWith(tweet: Tweet) {
+	static func presentComposeViewControllerWith(tweet: Tweet?) {
 		let composeTweetViewController = UIStoryboard.composeViewController()
-		composeTweetViewController.replyToTweet = tweet
+		if let tweet = tweet {
+			composeTweetViewController.replyToTweet = tweet
+		}
 		present(viewController: composeTweetViewController)
 	}
 

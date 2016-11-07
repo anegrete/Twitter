@@ -20,6 +20,8 @@ class HamburgerViewController: UIViewController {
 	@IBOutlet weak var contentViewLeadingConstraint: NSLayoutConstraint!
 	var originalContentViewLeadingConstant: CGFloat!
 
+	var panGestureRecognizer: UIPanGestureRecognizer!
+
 	// View Controllers
 
 	var menuViewController: MenuViewController! {
@@ -49,9 +51,12 @@ class HamburgerViewController: UIViewController {
 			}
 
 			addMenuButton()
+			addComposeButton()
 
 			contentViewController.willMove(toParentViewController: self)
 			contentView.addSubview(contentViewController.view)
+
+			addPanGesture()
 
 			contentViewController.didMove(toParentViewController: self)
 			UIView.animate(withDuration: 0.2) {
@@ -59,6 +64,15 @@ class HamburgerViewController: UIViewController {
 				self.view.layoutIfNeeded()
 			}
 		}
+	}
+
+	func addPanGesture() {
+		panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(onPanGesture))
+		contentView.isUserInteractionEnabled = true		contentView.addGestureRecognizer(panGestureRecognizer)
+	}
+
+	func removePanGesture() {
+		self.contentView.removeGestureRecognizer(panGestureRecognizer)
 	}
 
 	// MARK: - Menu button
@@ -75,6 +89,17 @@ class HamburgerViewController: UIViewController {
 		showMenu(show: menuIsHidden())
 	}
 
+	func addComposeButton() {
+		let topViewController = (contentViewController as! UINavigationController).topViewController
+		topViewController?.navigationItem.rightBarButtonItem =
+			UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.compose, target: self, action: #selector(didTapComposeButton))
+		topViewController?.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+	}
+
+	func didTapComposeButton() {
+		UIStoryboard.presentComposeViewControllerWith(tweet: nil)
+	}
+
 	// MARK: - Gestures
 
 	@IBAction func onPanGesture(_ sender: UIPanGestureRecognizer) {
@@ -89,7 +114,6 @@ class HamburgerViewController: UIViewController {
 
 		case .changed:
 			contentViewLeadingConstraint.constant = originalContentViewLeadingConstant + translation.x
-
 		case .ended:
 			self.showMenu(show: velocity.x > 0)
 

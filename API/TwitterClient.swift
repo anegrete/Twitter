@@ -111,11 +111,18 @@ class TwitterClient: BDBOAuth1SessionManager  {
 
 	// MARK: - Tweets
 
-	// Get Timeline
+	// Timeline
 
-	func homeTimeline(success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
+	func homeTimeline(maxId: String, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
+
+		var parameters:[String:String]? = nil
+
+		if maxId != "" {
+			parameters = ["max_id" : maxId]
+		}
+
 		get("1.1/statuses/home_timeline.json",
-			parameters: nil,
+			parameters: parameters,
 			progress: nil,
 			success: { (task: URLSessionDataTask, response: Any?) in
 				let dictionaries = response as! [NSDictionary]
@@ -128,9 +135,18 @@ class TwitterClient: BDBOAuth1SessionManager  {
 		})
 	}
 
-	func moreTimeline(maxId: String, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
-		get("1.1/statuses/home_timeline.json",
-		    parameters: ["max_id" : maxId],
+	// Mentions
+
+	func mentions(maxId: String, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
+
+		var parameters:[String:String]? = nil
+
+		if maxId != "" {
+			parameters = ["max_id" : maxId]
+		}
+
+		get("1.1/statuses/mentions_timeline.json",
+		    parameters: parameters,
 		    progress: nil,
 		    success: { (task: URLSessionDataTask, response: Any?) in
 				let dictionaries = response as! [NSDictionary]
@@ -142,7 +158,6 @@ class TwitterClient: BDBOAuth1SessionManager  {
 				print("Error: \(error.localizedDescription)")
 		})
 	}
-
 
 	// Retweet
 
