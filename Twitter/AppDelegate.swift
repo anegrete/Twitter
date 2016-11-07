@@ -14,7 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
 
-
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
 		UIApplication.shared.statusBarStyle = .lightContent
@@ -34,7 +33,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func initialize() {
 
 		if User.currentUser != nil {
-			show(viewController: homeViewController())
+			self.showMenu()
+		}
+		else {
+			self.showLogin()
 		}
 
 		self.addLogoutObserver()
@@ -43,23 +45,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		self.setupReachability()
 	}
 
-	func loginViewController() -> UIViewController {
-		let storyboard = UIStoryboard(name: "Main", bundle: nil)
-		return storyboard.instantiateInitialViewController()!
-	}
-
-	func homeViewController() -> UIViewController {
-		let storyboard = UIStoryboard(name: "Main", bundle: nil)
-		return storyboard.instantiateViewController(withIdentifier: "HomeNavigationController")
-	}
-
-	func detailViewController() -> UIViewController {
-		let storyboard = UIStoryboard(name: "Main", bundle: nil)
-		return storyboard.instantiateViewController(withIdentifier: "TweetDetailViewController")
-	}
-
 	func show(viewController: UIViewController) {
 		self.window?.rootViewController = viewController
+	}
+
+	func showLogin() {
+		self.show(viewController: UIStoryboard.loginViewController())
+	}
+
+	func showMenu() {
+		self.show(viewController: UIStoryboard.hamburgerViewController())
 	}
 
 
@@ -71,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			object: nil,
 			queue: OperationQueue.main) {
 				(notification: Notification) in
-				self.show(viewController: self.loginViewController())
+				self.showLogin()
 		}
 	}
 

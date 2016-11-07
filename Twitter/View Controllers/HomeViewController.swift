@@ -89,12 +89,6 @@ class HomeViewController: UIViewController {
 		tweetsTableView.contentInset = insets
 	}
 
-	// MARK: - UI Actions
-
-	@IBAction func didTapLogout(_ sender: UIBarButtonItem) {
-		TwitterClient.shared?.logout()
-	}
-
 	// MARK: - Tweets
 
 	func homeTimeline() {
@@ -147,8 +141,7 @@ extension HomeViewController : UITableViewDataSource {
 extension HomeViewController : UITableViewDelegate {
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let storyboard = UIStoryboard(name: "Main", bundle: nil)
-		let detailViewController = storyboard.instantiateViewController(withIdentifier: "TweetDetailViewController") as! TweetDetailViewController
+		let detailViewController = UIStoryboard.detailViewController()
 		detailViewController.tweet = tweets?[indexPath.row]
 		show(detailViewController, sender: nil)
 		tableView.deselectRow(at: indexPath, animated: true)
