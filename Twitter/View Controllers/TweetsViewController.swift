@@ -31,10 +31,13 @@ class TweetsViewController: UIViewController {
 		customizeNavigationBar()
 	}
 
-
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		customizeNavigationBar()
+	}
+
+	override var prefersStatusBarHidden: Bool {
+		return false
 	}
 
 	// MARK: - Initializations

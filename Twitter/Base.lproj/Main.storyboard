@@ -60,7 +60,7 @@
                                 <color key="textColor" red="0.60392156860000001" green="0.66274509800000003" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Almost 60 years after launching the bullet train, Japan is breaking records again with the new maglev train" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R2F-b3-EYM">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Almost 60 years after launching the bullet train, Japan is breaking records again with the new maglev train" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R2F-b3-EYM" customClass="TTTAttributedLabel">
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="CgL-9H-Phh"/>
                                 </constraints>
@@ -322,7 +322,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="Cqg-iz-KLs" userLabel="Header View">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="297"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alejandra Negrete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EXD-4Y-Lyq">
@@ -335,7 +335,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description 2" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rf9-1f-3xF">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rf9-1f-3xF">
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -466,7 +466,7 @@
                                         <constraint firstItem="Vty-6a-ERo" firstAttribute="centerY" secondItem="V7h-P9-g3l" secondAttribute="centerY" id="rq3-J2-h1b"/>
                                         <constraint firstItem="OPT-Vt-eeV" firstAttribute="top" secondItem="Vty-6a-ERo" secondAttribute="bottom" constant="2" id="uzS-e1-1wf"/>
                                         <constraint firstItem="KeA-rV-B2M" firstAttribute="leading" secondItem="Cqg-iz-KLs" secondAttribute="leading" id="v6G-nA-Qcr"/>
-                                        <constraint firstItem="KeA-rV-B2M" firstAttribute="top" secondItem="Rf9-1f-3xF" secondAttribute="bottom" constant="10" id="w3h-eM-JQV"/>
+                                        <constraint firstItem="KeA-rV-B2M" firstAttribute="top" secondItem="Rf9-1f-3xF" secondAttribute="bottom" constant="17" id="w3h-eM-JQV"/>
                                     </constraints>
                                 </view>
                                 <connections>

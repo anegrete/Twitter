@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import TTTAttributedLabel
 
 class TweetDetailViewController: UIViewController {
 
-	@IBOutlet weak var tweetTextLabel: UILabel!
+	@IBOutlet weak var tweetTextLabel: TTTAttributedLabel!
 	@IBOutlet weak var profileImageView: UIImageView!
 	@IBOutlet weak var screennameLabel: UILabel!
 	@IBOutlet weak var nameLabel: UILabel!
@@ -49,7 +50,13 @@ class TweetDetailViewController: UIViewController {
 	}
 
 	func initLabels() {
+
+		tweetTextLabel.linkAttributes = [NSForegroundColorAttributeName : UIColor.blue]
+		tweetTextLabel.activeLinkAttributes = [NSForegroundColorAttributeName : UIColor.red]
+		tweetTextLabel.enabledTextCheckingTypes = NSTextCheckingResult.CheckingType.link.rawValue
+		tweetTextLabel.delegate = self
 		tweetTextLabel.text = tweet.text!
+
 		screennameLabel.text = "@" + (tweet.user?.screenname)!
 		nameLabel.text = tweet.user?.name!
 		createdAtLabel.text = Date.longDescription(date: tweet.timestamp!)
@@ -159,5 +166,13 @@ class TweetDetailViewController: UIViewController {
 
 	@IBAction func didTapProfileImageView(_ sender: UITapGestureRecognizer) {
 		UIStoryboard.showProfileViewControllerWith(user: tweet.user!)
+	}
+}
+
+extension TweetDetailViewController : TTTAttributedLabelDelegate {
+
+	func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
+		UIApplication.shared.open(url, options: [:]) { (finished: Bool) in
+		}
 	}
 }

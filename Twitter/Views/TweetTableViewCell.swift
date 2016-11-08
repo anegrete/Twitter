@@ -10,7 +10,7 @@ import UIKit
 import TTTAttributedLabel
 import MediaPlayer
 
-class TweetTableViewCell: UITableViewCell {
+class TweetTableViewCell: UITableViewCell, TTTAttributedLabelDelegate {
 
 	@IBOutlet weak var profileImageView: UIImageView!
 	@IBOutlet weak var tweetTextLabel: TTTAttributedLabel!
@@ -33,6 +33,11 @@ class TweetTableViewCell: UITableViewCell {
 				tweet = retweet
 			}
 
+			// Tweet text
+			tweetTextLabel.linkAttributes = [NSForegroundColorAttributeName : UIColor.blue]
+			tweetTextLabel.activeLinkAttributes = [NSForegroundColorAttributeName : UIColor.red]
+			tweetTextLabel.enabledTextCheckingTypes = NSTextCheckingResult.CheckingType.link.rawValue
+			tweetTextLabel.delegate = self
 			tweetTextLabel.text = tweet.text!
 
 			profileImageView.setImageWith((tweet.user?.profileUrl)!)
@@ -66,7 +71,7 @@ class TweetTableViewCell: UITableViewCell {
 	func addProfileImageViewTapGesture() {
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapProfileImageView))
 		profileImageView.isUserInteractionEnabled = true
-//		tapGestureRecognizer.delegate = self
+		tapGestureRecognizer.delegate = self
 		profileImageView.addGestureRecognizer(tapGestureRecognizer)
 	}
 
@@ -144,7 +149,15 @@ class TweetTableViewCell: UITableViewCell {
 		UIStoryboard.showProfileViewControllerWith(user: tweet.user!)
 	}
 
-//	override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-//		return true
-//	}
+	override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+		return true
+	}
+
+	// MARK: - Links
+
+	func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
+		UIApplication.shared.open(url, options: [:]) { (finished: Bool) in
+		}
+	}
 }
+
