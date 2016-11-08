@@ -31,6 +31,12 @@ class TweetsViewController: UIViewController {
 		customizeNavigationBar()
 	}
 
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		customizeNavigationBar()
+	}
+
 	// MARK: - Initializations
 
 	func initTableView() {
@@ -52,11 +58,7 @@ class TweetsViewController: UIViewController {
 	}
 
 	func customizeNavigationBar() {
-		let logo = UIImage(named: "Twitter-icon-white.png")
-		let imageView = UIImageView(image:logo)
-		self.navigationItem.titleView = imageView
-		self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
-		self.navigationController?.navigationBar.tintColor = UIColor.white
+		UIHelper.blueNavigationBarFor(viewController: self)
 	}
 
 	// MARK: - Refresh Control

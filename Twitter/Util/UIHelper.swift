@@ -19,6 +19,8 @@ enum Color {
 
 class UIHelper: NSObject {
 
+	// MARK: - Alerts
+
 	class func showError(message: String) {
 		let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
 		let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
@@ -31,5 +33,31 @@ class UIHelper: NSObject {
 		let alertController = UIAlertController(title: "No Network Error", message: "Please check your internet connection", preferredStyle: .alert)
 		alertController.addAction(okAction)
 		UIStoryboard.present(viewController: alertController)
+	}
+
+	// MARK: - Navigation Bar
+
+	class func blueNavigationBarFor(viewController: UIViewController) {
+		let logo = UIImage(named: "Twitter-icon-white.png")
+		let imageView = UIImageView(image:logo)
+
+		let navigationItem = viewController.navigationItem
+		navigationItem.titleView = imageView
+		navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
+
+		let navigationBar = viewController.navigationController?.navigationBar
+		navigationBar?.tintColor = UIColor.white
+		navigationBar?.barTintColor = Color.blue
+		navigationBar?.setBackgroundImage(nil, for: UIBarMetrics.default)
+	}
+
+	class func transparentNavigationBarFor(viewController: UIViewController) {
+		let transparentImage = UIImage(color: UIColor.clear)
+
+		let navigationBar = viewController.navigationController?.navigationBar
+		navigationBar?.setBackgroundImage(transparentImage, for: UIBarMetrics.default)
+		navigationBar?.shadowImage = transparentImage
+		navigationBar?.backgroundColor = UIColor.clear
+		navigationBar?.isTranslucent = true
 	}
 }

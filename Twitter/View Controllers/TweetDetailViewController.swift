@@ -33,6 +33,11 @@ class TweetDetailViewController: UIViewController {
 		initNavigationItem()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		UIHelper.blueNavigationBarFor(viewController: self)
+	}
+
 	// MARK: - Initializations
 
 	func initTweet() {
@@ -55,6 +60,7 @@ class TweetDetailViewController: UIViewController {
 		profileImageView.setImageWith((tweet.user?.profileUrl)!)
 		profileImageView.layer.cornerRadius = 3
 		profileImageView.clipsToBounds = true
+		addProfileImageViewTapGesture()
 	}
 
 	func initMediaImage() {
@@ -141,5 +147,17 @@ class TweetDetailViewController: UIViewController {
 					UIHelper.showError(message: "Can't favorite right now. Please try again later")
 			})
 		}
+	}
+
+	// MARK: - Gestures
+
+	func addProfileImageViewTapGesture() {
+		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapProfileImageView))
+		profileImageView.isUserInteractionEnabled = true
+		profileImageView.addGestureRecognizer(tapGestureRecognizer)
+	}
+
+	@IBAction func didTapProfileImageView(_ sender: UITapGestureRecognizer) {
+		UIStoryboard.showProfileViewControllerWith(user: tweet.user!)
 	}
 }

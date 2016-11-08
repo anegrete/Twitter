@@ -31,9 +31,15 @@ class User: NSObject {
 			profileUrl = URL(string: profileUrlString)
 		}
 
-		let profileBackgroundUrlString = dictionary["profile_background_image_url_https"] as? String
+		let profileBackgroundUrlString = dictionary["profile_banner_url"] as? String
 		if let profileBackgroundUrlString = profileBackgroundUrlString {
 			profileBackgroundUrl = URL(string: profileBackgroundUrlString)
+		}
+		else {
+			let profileBackgroundImageUrlString = dictionary["profile_background_image_url_https"] as? String
+			if let profileBackgroundImageUrlString = profileBackgroundImageUrlString {
+				profileBackgroundUrl = URL(string: profileBackgroundImageUrlString)
+			}
 		}
 
 		tagline = dictionary["description"] as? String

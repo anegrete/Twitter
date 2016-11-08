@@ -36,10 +36,8 @@ class TweetTableViewCell: UITableViewCell {
 			tweetTextLabel.text = tweet.text!
 
 			profileImageView.setImageWith((tweet.user?.profileUrl)!)
-			let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapProfileImageView))
-			profileImageView.isUserInteractionEnabled = true
-			tapGestureRecognizer.delegate = self
-			profileImageView.addGestureRecognizer(tapGestureRecognizer)
+			addProfileImageViewTapGesture()
+
 			screennameLabel.text = "@" + (tweet.user?.screenname)!
 			nameLabel.text = tweet.user?.name!
 			createdAtLabel.text = Date.shortDescription(date: tweet.timestamp!)
@@ -63,6 +61,13 @@ class TweetTableViewCell: UITableViewCell {
 				mediaHeightConstraint.constant = 0
 			}
 		}
+	}
+
+	func addProfileImageViewTapGesture() {
+		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapProfileImageView))
+		profileImageView.isUserInteractionEnabled = true
+//		tapGestureRecognizer.delegate = self
+		profileImageView.addGestureRecognizer(tapGestureRecognizer)
 	}
 
 	// MARK: - View Lifecycle
@@ -139,7 +144,7 @@ class TweetTableViewCell: UITableViewCell {
 		UIStoryboard.showProfileViewControllerWith(user: tweet.user!)
 	}
 
-	override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-		return true
-	}
+//	override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+//		return true
+//	}
 }
